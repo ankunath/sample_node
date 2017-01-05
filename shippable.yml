@@ -12,6 +12,7 @@ env:
     - FO1=BUBU
     - BOO=GUBU
     - IMAGE_TAG="driftking"
+    - IMAGE_NAME="scriptnull/debian"
 
   matrix:
     - M1=ONE
@@ -27,10 +28,10 @@ build:
     #- echo $JOB_NUMBER
     #- echo $BUILD_TASK
 
-  pre_ci_boot:
-    image_name: scriptnull/debian
-    image_tag: $IMAGE_TAG
-    pull: true
+  pre_ci_boot:"$MY_IMAGE_NAME:$MY_IMAGE_TAG"
+    #image_name: scriptnull/debian
+    #image_tag: $IMAGE_TAG
+    #pull: true
     #options: "-e HOME=/root"
     #- echo $IMAGE_TAG
 

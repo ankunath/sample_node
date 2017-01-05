@@ -28,7 +28,7 @@ build:
     #- echo $JOB_NUMBER
     #- echo $BUILD_TASK
 
-  pre_ci_boot:"$MY_IMAGE_NAME:$MY_IMAGE_TAG"
+  pre_ci_boot:"$IMAGE_NAME:$IMAGE_TAG"
     #image_name: scriptnull/debian
     #image_tag: $IMAGE_TAG
     #pull: true

@@ -17,20 +17,20 @@ env:
     - M2=TWO
 
 build:
-  pre_ci:
-    - echo "Good morning 2"
-    - export IMAGE_TAG="driftking"
+  #pre_ci:
+   # - echo "Good morning 2"
+    #- export IMAGE_TAG="driftking"
     #- if [ "$BRANCH" == "master" ] || [ "$BRANCH" == "staging" ] || [ "$BRANCH" == "develop" ] ; then export BUILD_TASK="build" ; else export BUILD_TASK="test" ; fi
-    - echo $IMAGE_TAG
-    - echo $ARCHIVE_DIR
-    - echo $JOB_NUMBER
+    #- echo $IMAGE_TAG
+    #- echo $ARCHIVE_DIR
+    #- echo $JOB_NUMBER
     #- echo $BUILD_TASK
 
-  pre_ci_boot:
-    image_name: scriptnull/debian
-    image_tag: $IMAGE_TAG
-    pull: true
-    options: "-e HOME=/root"
+  #pre_ci_boot:
+    #image_name: scriptnull/debian
+    #image_tag: $IMAGE_TAG
+    #pull: true
+    #options: "-e HOME=/root"
     #- echo $IMAGE_TAG
 
   ci:

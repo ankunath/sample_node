@@ -15,7 +15,7 @@ integrations:
       type: docker
 
   notifications:
-    - integrationName: newtrigger
+    - integrationName: newtriggers
       type: webhook
       payload:
         - versionName=$DOCKER_IMAGE_NAME:$DOCKER_TAG

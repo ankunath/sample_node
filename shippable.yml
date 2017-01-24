@@ -11,11 +11,11 @@ build:
 
 integrations:
   hub:
-    - integrationName: personal_dockerhub
+    - integrationName: docker
       type: docker
 
   notifications:
-    - integrationName: trigger.retryerjs.pipelines
+    - integrationName: newtrigger
       type: webhook
       payload:
         - versionName=$DOCKER_IMAGE_NAME:$DOCKER_TAG

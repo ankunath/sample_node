@@ -1,40 +1,31 @@
-# Language setting
-language: node_js
-
-
-# Version number
-node_js:
-  - 0.12
-
-env:
-  global:
-    - FOO=FUBU
-    - FO1=BUBU
-    - BOO=GUBU
-    - IMAGE_TAG="driftking"
-    - IMAGE_NAME="scriptnull/debian"
-
-  matrix:
-    - M1=ONE
-    - M2=TWO
+language: none
 
 build:
-  #pre_ci:
-   # - echo "Good morning 2"
-    #- export IMAGE_TAG="driftking"
-    #- if [ "$BRANCH" == "master" ] || [ "$BRANCH" == "staging" ] || [ "$BRANCH" == "develop" ] ; then export BUILD_TASK="build" ; else export BUILD_TASK="test" ; fi
-    #- echo $IMAGE_TAG
-    #- echo $ARCHIVE_DIR
-    #- echo $JOB_NUMBER
-    #- echo $BUILD_TASK
-
-  pre_ci_boot:
-    "$IMAGE_NAME:$IMAGE_TAG"
-    #image_name: scriptnull/debian
-    #image_tag: $IMAGE_TAG
-    #pull: true
-    #options: "-e HOME=/root"
-    #- echo $IMAGE_TAG
 
   ci:
-    - npm install
+    - export DOCKER_IMAGE_NAME=ykrevnyi/retryer.js
+    - if [ "$IS_RELEASE" == false ]; then export DOCKER_TAG=trunk-${COMMIT:0:7}; fi
+    - if [ "$IS_RELEASE" == true ]; then export DOCKER_TAG=${GIT_TAG_NAME#v}; fi
+    - ./ci/build.sh
+    - ./ci/test.sh
+
+integrations:
+  hub:
+    - integrationName: personal_dockerhub
+      type: docker
+
+  notifications:
+    - integrationName: trigger.retryerjs.pipelines
+      type: webhook
+      payload:
+        - versionName=$DOCKER_IMAGE_NAME:$DOCKER_TAG
+      #branches:
+       # only:
+        #  - v*
+      on_success: always
+      on_failure: never
+
+branches:
+  only:
+    - master
+    - v*
